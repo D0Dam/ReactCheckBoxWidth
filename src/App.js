@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useRef, useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [width, setWidth] = useState(0);
+	const boxRef = useRef(null);
+	const getWidth = () => {
+		setWidth(boxRef.current.offsetWidth);
+		console.log(`박스 사이즈 변경! 너비 : ${boxRef}`);
+	};
+	useEffect(() => {
+		setWidth(boxRef.current.offsetWidth);
+	}, []);
+	return (
+		<div className="App">
+			<div className="box" ref={boxRef}>
+				&lt;-- {width}px --&gt;
+			</div>
+			<button onClick={getWidth}>측정!</button>
+		</div>
+	);
 }
 
 export default App;
